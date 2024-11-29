@@ -19,34 +19,45 @@ class Solution
         // Write an answer using Console.WriteLine()
         // To debug: Console.Error.WriteLine("Debug messages...");
 
-        var beginDate=DateTime.Parse(BEGIN);
-        var endDate=DateTime.Parse(END);
+        Console.Error.WriteLine($"{BEGIN}   {END}");
 
-        DateTime period=endDate-beginDate
+        var beginDate=DateTime.ParseExact(BEGIN,"dd.MM.yyyy",null);
+        var endDate=DateTime.ParseExact(END, "dd.MM.yyyy", null);
+
+        var totalMonth=(endDate.Year*12+endDate.Month)-(beginDate.Year*12+beginDate.Month);
+        if (beginDate.Day > endDate.Day)
+        {
+            totalMonth -= 1;
+        }
+
+        var year = totalMonth / 12;
+        var month = totalMonth % 12;
+
+
 
         var returnText = "";
-        if (period.Year == 1)
+        if (year == 1)
         {
-            returnText += "1 year,";
+            returnText += "1 year, ";
         }
-        if (period.Year > 1)
+        if (year > 1)
         {
-            returnText += $"{period.Year} years, ";
+            returnText += $"{year} years, ";
         }
 
-        if (period.Month == 1)
+        if (month == 1)
         {
-            returnText += "1 month,";
+            returnText += "1 month, ";
         }
-        if (period.Month > 1)
+        if (month > 1)
         {
-            returnText += $"{period.Month} months, ";
+            returnText += $"{month} months, ";
         }
 
         var days=(endDate-beginDate).TotalDays;
-        var daysText = (days == 0) ? "" : (days == 1) ? "day" : "days";
-        returnText += $"total {days} day{daysText}";
+        var daysText = (days == 0) ? "days" : (days == 1) ? "day" : "days";
+        returnText += $"total {days} {daysText}";
 
-        Console.WriteLine("YY year[s], MM month[s], total NN days");
+        Console.WriteLine(returnText);
     }
 }
