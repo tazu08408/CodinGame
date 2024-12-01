@@ -48,7 +48,7 @@ class Player
             {"Z",26},
         };
 
-        var existDictionary=new Dictionary<string, int>();
+        var existDictionary = new Dictionary<string, int>();
 
         var totalStone = 30;
         var totalAsciiChara = 27;
@@ -67,7 +67,7 @@ class Player
             asciiCountDictionary[ascii.ToString()] += 1;
         }
 
-        var asciiPositionDictyonary=new Dictionary<string,int>();
+        var asciiPositionDictyonary = new Dictionary<string, int>();
 
 
         var wordCountDictionary = new Dictionary<string, int>();
@@ -87,7 +87,8 @@ class Player
             Console.Error.WriteLine($"{word.Key} {word.Value}");
             foreach (var ascii in word.Key)
             {
-                if (!asciiPositionDictyonary.ContainsKey(ascii.ToString())){
+                if (!asciiPositionDictyonary.ContainsKey(ascii.ToString()))
+                {
                     asciiPositionDictyonary.Add(ascii.ToString(), asciiPositionDictyonary.Count());
                 }
             }
@@ -98,25 +99,29 @@ class Player
 
 
         existDictionary.Add(" ", 0);
+        resultText += ">";
+        currentChara = 1;
+
         foreach (var ascii in magicPhrase)
         {
             var targetCount = 0;
 
             if (!existDictionary.ContainsKey(ascii.ToString()))
             {
-                existDictionary.Add(ascii.ToString(),existDictionary.Count());
+                existDictionary.Add(ascii.ToString(), existDictionary.Count());
                 //existDictionary.Add(ascii.ToString(), asciiPositionDictyonary[ascii.ToString()]);
                 targetCount = existDictionary[ascii.ToString()];
 
-                resultText += GetMoveCode(currentChara, targetCount,asciiPositionDictyonary.Count(),existDictionary.Count());
+                resultText += GetMoveCode(currentChara, targetCount, asciiPositionDictyonary.Count(), existDictionary.Count(),true);
 
                 currentChara = targetCount;
                 if (asciiDictionary[ascii.ToString()] <= 13)
                 {
                     resultText += new string('+', asciiDictionary[ascii.ToString()]);
                 }
-                else {
-                    resultText += new string('-', 27-asciiDictionary[ascii.ToString()]);
+                else
+                {
+                    resultText += new string('-', 27 - asciiDictionary[ascii.ToString()]);
                 }
             }
 
@@ -124,34 +129,42 @@ class Player
 
 
 
-            resultText += GetMoveCode(currentChara, targetCount, asciiPositionDictyonary.Count(), existDictionary.Count());
+            resultText += GetMoveCode(currentChara, targetCount, asciiPositionDictyonary.Count(), existDictionary.Count(),false);
 
 
             currentChara = targetCount;
-         
+
 
             resultText += ".";
 
-
+            if (currentChara == 0)
+            {
+                resultText += ">";
+                currentChara = 1;
+            }
         }
 
 
         Console.WriteLine(resultText);
     }
 
-    public static string GetMoveCode(int current,int target,int allCharaCount,int existCharaCount)
+    public static string GetMoveCode(int current, int target, int allCharaCount, int existCharaCount, bool isNewChara)
     {
         var bbb = (target >= current) ? (target - current) : (current - target);
 
         var resultText = "";
 
         //if (allCharaCount == existCharaCount)
+        if (isNewChara)
         {
-            if ((target <= 3)&&(bbb>5))
-            {
-                resultText += "[<]" + new string('>', target);
-                return resultText;
-            }
+            resultText += "[>]";
+            return resultText;
+        }
+
+        if ((target <= 2) && (bbb > 6))
+        {
+            resultText += "[<]" + new string('>', target);
+            return resultText;
         }
 
         if (bbb <= 15)
