@@ -99,8 +99,34 @@ class Player
 
 
         existDictionary.Add(" ", 0);
-        resultText += ">";
-        currentChara = 1;
+        existDictionary.Add("A", 26);
+        existDictionary.Add("B", 25);
+        existDictionary.Add("C", 24);
+        existDictionary.Add("D", 23);
+        existDictionary.Add("E", 22);
+        existDictionary.Add("F", 21);
+        existDictionary.Add("G", 20);
+        existDictionary.Add("H", 19);
+        existDictionary.Add("I", 18);
+        existDictionary.Add("J", 17);
+        existDictionary.Add("K", 16);
+        existDictionary.Add("L", 15);
+        existDictionary.Add("M", 14);
+        existDictionary.Add("N", 13);
+        existDictionary.Add("O", 12);
+        existDictionary.Add("P", 11);
+        existDictionary.Add("Q", 10);
+        existDictionary.Add("R", 9);
+        existDictionary.Add("S", 8);
+        existDictionary.Add("T", 7);
+        existDictionary.Add("U", 6);
+        existDictionary.Add("V", 5);
+        existDictionary.Add("W", 4);
+        existDictionary.Add("X", 3);
+        existDictionary.Add("Y", 2);
+        existDictionary.Add("Z", 1);
+        resultText += "+[>[+>]+<[<]>+]";
+        currentChara = 0;
 
         foreach (var ascii in magicPhrase)
         {
